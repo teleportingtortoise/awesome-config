@@ -11,7 +11,7 @@ local wibox = require("wibox")
 -- Theme handling library
 local beautiful = require("beautiful")
 -- Notification library
-local naughty = require("naughty")
+--local naughty = require("naughty")
 --local menubar = require("menubar")
 
 -- For allowing use of dpi based sizes
@@ -195,8 +195,8 @@ awful.screen.connect_for_each_screen(function(s)
                 },
                 id     = 'background_role',
                 widget = wibox.container.background,
-                --forced_width = beautiful.wibar_width - dpi(10),
-                --forced_height = beautiful.wibar_height - dpi(10),
+                forced_width = beautiful.wibar_width - dpi(10),
+                forced_height = beautiful.wibar_height - dpi(10),
             },
             margins = dpi(5),
             widget = wibox.container.margin,

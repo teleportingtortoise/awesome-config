@@ -3,7 +3,7 @@
 pcall(require, "luarocks.loader")
 -- For drawing custom cairo shapes
 local cairo = require("lgi").cairo
--- Gears shapes
+-- Gears colors
 local color = require("gears.color")
 
 

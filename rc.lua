@@ -3,14 +3,11 @@
 pcall(require, "luarocks.loader")
 
 -- Standard awesome library
-local gears = require("gears")
 local awful = require("awful")
 -- Theme handling library
 local beautiful = require("beautiful")
 -- Notification library
 local naughty = require("naughty")
-
---local menubar = require("menubar")
 
 -- Setup hotkey popup here so it works with the menu
 local hotkeys_popup = require("awful.hotkeys_popup")
@@ -19,13 +16,13 @@ local hotkeys_popup = require("awful.hotkeys_popup")
 require("awful.hotkeys_popup.keys")
 
 --local autostart = require("autostart")
-local mywidgets = require("mywidgets")
+local mywidgets = require("widgets.mini_widgets")
 --local clock_widget = require("clock_widget")
-local overview = require("overview")
+--local overview = require("overview")
 
 --For allowing use of dpi based sizes
 local xresources = require("beautiful.xresources")
-local dpi = xresources.apply_dpi
+--local dpi = xresources.apply_dpi
 
 --For drawing custom cairo shapes
 local cairo = ("lgi").cairo

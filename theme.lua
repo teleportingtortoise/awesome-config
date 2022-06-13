@@ -2,21 +2,19 @@
 --  "Irixium" awesome theme          --
 --  Inspired by the KDE colorscheme  --
 ---------------------------------------
-
-local theme_assets = require("beautiful.theme_assets")
 local xresources = require("beautiful.xresources")
 local dpi = xresources.apply_dpi
 local themes_path = require("gears.filesystem").get_themes_dir()
 local gears = require("gears")
--- Simple local drawing library
-local drawing = require("drawing")
+-- Simple drawing library
+local drawing = require("lib.drawing")
 
 --------------
 --  BASICS  --
 --------------
 
 local theme = {}
-theme.wallpaper     = "/home/trysta/.config/awesome/background.jpg"
+--theme.wallpaper     = "background.jpg"
 theme.font          = "Iosevka Medium " .. dpi(9)
 theme.taglist_font  = "Symbols Nerd Font " .. dpi(10)
 theme.calendar_font = "Iosevka " .. dpi(10)
@@ -192,15 +190,6 @@ theme.awesome_icon           = themes_path .. "default/awesome-icon.png"
 -- from default for now...
 theme.menu_submenu_icon      = themes_path .. "default/submenu.png"
 
---Generate taglist squares:
--- local taglist_square_size = dpi(4)
--- theme.taglist_squares_sel = theme_assets.taglist_squares_sel(
---    taglist_square_size, theme.fg_normal
--- )
--- theme.taglist_squares_unsel = theme_assets.taglist_squares_unsel(
---    taglist_square_size, theme.fg_normal
--- )
-
 -- Define the image to load
 theme.titlebar_close_button_normal = themes_path .. "default/titlebar/close_normal.png"
 theme.titlebar_close_button_focus = themes_path .. "default/titlebar/close_focus.png"
@@ -229,5 +218,3 @@ theme.titlebar_maximized_button_normal_active = themes_path .. "default/titlebar
 theme.titlebar_maximized_button_focus_active = themes_path .. "default/titlebar/maximized_focus_active.png"
 
 return theme
-
--- vim: filetype=lua:expandtab:shiftwidth=4:tabstop=8:softtabstop=4:textwidth=80

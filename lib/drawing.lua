@@ -143,7 +143,6 @@ end
 
 -- Return functions
 return {
-    beveled_rect = beveled_rect,
     beveled_bar = beveled_bar,
     barcap_start = barcap_start,
     barcap_end = barcap_end,

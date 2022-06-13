@@ -18,10 +18,6 @@ local naughty = require("naughty")
 local xresources = require("beautiful.xresources")
 local dpi = xresources.apply_dpi
 
--- Local cairo shape library
-local drawing = require("drawing")
-
-
 
 -- Create a wibox for each screen and add it
 local taglist_buttons = gears.table.join(
@@ -199,8 +195,8 @@ awful.screen.connect_for_each_screen(function(s)
                 },
                 id     = 'background_role',
                 widget = wibox.container.background,
-                forced_width = beautiful.wibar_width - dpi(10),
-                forced_height = beautiful.wibar_height - dpi(10),
+                --forced_width = beautiful.wibar_width - dpi(10),
+                --forced_height = beautiful.wibar_height - dpi(10),
             },
             margins = dpi(5),
             widget = wibox.container.margin,

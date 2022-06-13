@@ -14,30 +14,39 @@ local drawing = require("lib.drawing")
 --------------
 
 local theme = {}
---theme.wallpaper     = "background.jpg"
+theme.wallpaper     = "~/.config/awesome/background.svg"
 theme.font          = "Iosevka Medium " .. dpi(9)
 theme.taglist_font  = "Symbols Nerd Font " .. dpi(10)
 theme.calendar_font = "Iosevka " .. dpi(10)
 
--- Common colors
 theme.colors = {
     black           = "#000000",
+    grey            = "#7f7f7f",
     white           = "#f8f8f8",
-    grey            = "#97999b",
-    bev_body        = "#c1c1c1",
-    bev_light       = "#efefef",
-    bev_shadow      = "#7f7f7f",
     text_body       = "#9ebdbd",
+    hover           = "#ffaa00",
+    focus           = "#ff00ff",
+
+    bevel_body      = "#c1c1c1",
+    bevel_light     = "#efefef",
+    bevel_shadow    = "#7f7f7f",
+
     focused         = "#9b7777",
     focused_light   = "#eda771",
     focused_shadow  = "#553a3f",
+
     urgent          = "#8a5e83",
     urgent_light    = "#ed71a1",
     urgent_shadow   = "#553a3f",
 }
 
+theme.shapes = {
+    rounded_rect    = function(cr, width, height)
+        gears.shape.rounded_rect( cr, width, height, dpi(2.6) ) end,
+}
+
 -- Other basics
-theme.hotkeys_modifiers_fg = "#9b8483"
+theme.hotkeys_modifiers_fg = theme.colors.focused
 
 theme.useless_gap   = dpi(0)
 theme.menu_height   = dpi(24)
@@ -48,72 +57,69 @@ theme.bev_width     = dpi(1.3)
 theme.taglist_squares       = "false"
 theme.titlebar_close_button = "true"
 
-theme.border_normal = "#97999b"
-theme.border_focus  = "#ffaa00"
-theme.border_marked = "#eeeeec"
-
--- Common shapes
-theme.my_roundedrect = function(cr, width, height) gears.shape.rounded_rect( cr, width, height, dpi(2.5) ) end
+theme.border_normal = theme.colors.grey
+theme.border_focus  = theme.colors.hover
+theme.border_marked = theme.colors.white
 
 -- WiBar
 theme.wibar_height  = dpi(32)
 theme.wibar_width   = dpi(32)
 
-theme.bg_normal     = theme.colors.bev_body
-theme.bev_highlight = "#efefef" -- North, south, east, and west actually supported
-theme.bev_shadow    = "#7f7f7f"
+theme.bg_normal     = theme.colors.bevel_body
+theme.bev_highlight = theme.colors.bevel_light
+theme.bev_shadow    = theme.colors.bevel_shadow
 
-theme.bg_focus      = "#97999b"
+theme.bg_focus      = theme.colors.grey
 
-theme.bg_urgent     = "#8a5e83"
+theme.bg_urgent     = theme.colors.urgent
 
 theme.bg_minimize   = theme.bg_normal
 theme.bg_systray    = theme.bg_normal
 
 theme.fg_normal     = theme.colors.black
-theme.fg_focus      = "#000000"
-theme.fg_urgent     = "#000000"
-theme.fg_minimize   = "#7f7f7f"
+theme.fg_focus      = theme.colors.black
+theme.fg_urgent     = theme.colors.black
+theme.fg_minimize   = theme.colors.grey
 
 -- Taglist
-theme.taglist_shape = theme.my_roundedrect
-theme.taglist_shape_border_width = dpi(1.25)
-theme.taglist_shape_border_color = "#97999b"
-theme.taglist_shape_border_color_focus = "#ff00ff"
+theme.taglist_shape = theme.shapes.rounded_rect
+theme.taglist_shape_border_width = dpi(1.3)
+theme.taglist_shape_border_color = theme.colors.grey
+theme.taglist_shape_border_color_focus = theme.colors.focus
 theme.taglist_shape_border_width_empty = 0
 
 -- Tasklist
-theme.tasklist_fg_normal   = "#000000"
-theme.tasklist_fg_focus    = "#f8f8f8"
+theme.tasklist_fg_normal   = theme.colors.black
+theme.tasklist_fg_focus    = theme.colors.white
 theme.tasklist_bg_normal   = theme.bg_normal
 
-theme.tasklist_bg_focus    = "#9b7777"
-theme.bev_highlight_focus  = "#eda771"
-theme.bev_shadow_focus     = "#553a3f"
+theme.tasklist_bg_focus    = theme.colors.focused
+theme.bev_highlight_focus  = theme.colors.focused_light
+theme.bev_shadow_focus     = theme.colors.focused_shadow
 
-theme.tasklist_bg_urgent   = theme.bg_urgent
-theme.bev_highlight_urgent = "#ed71a1"
-theme.bev_shadow_urgent    = "#553a3f"
+theme.tasklist_bg_urgent   = theme.colors.urgent
+theme.bev_highlight_urgent = theme.colors.urgent_light
+theme.bev_shadow_urgent    = theme.colors.urgent_shadow
 
 -- Titlebars
-theme.titlebar_bg_focus    = "#eda771"
-theme.titlebar_bg_normal   = "#97999b"
-theme.titlebar_bg_urgent   = "#8a5e83"
+theme.titlebar_bg_focus    = theme.colors.hover
+theme.titlebar_bg_normal   = theme.colors.grey
+theme.titlebar_bg_urgent   = theme.colors.urgent
 
-theme.titlebar_fg_normal   = "#f8f8f8"
-theme.titlebar_fg_focus    = "#f8f8f8"
-theme.titlebar_fg_urgent   = "#000000"
-theme.titlebar_fg_minimize = "#7f7f7f"
+theme.titlebar_fg_normal   = theme.colors.white
+theme.titlebar_fg_focus    = theme.colors.white
+theme.titlebar_fg_urgent   = theme.colors.black
+theme.titlebar_fg_minimize = theme.colors.grey
 
 -- Notifications
 theme.notification_margin  = dpi(16)
-theme.notification_shape   = theme.my_roundedrect
+theme.notification_shape   = theme.shapes.rounded_rect
 theme.notification_max_width = dpi(320)
 theme.notification_border_width = dpi(1.25)
 theme.notification_icon_size = dpi(128)
 theme.notification_bg      = theme.colors.text_body
-theme.notification_fg      = "#000000"
-theme.notification_border_color = "#000000"
+theme.notification_fg      = theme.colors.black
+theme.notification_border_color = theme.colors.black
 
 -- IMAGES --
 

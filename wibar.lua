@@ -195,8 +195,8 @@ awful.screen.connect_for_each_screen(function(s)
                 },
                 id     = 'background_role',
                 widget = wibox.container.background,
-                forced_width = beautiful.wibar_width - dpi(10),
-                forced_height = beautiful.wibar_height - dpi(10),
+                --forced_width = beautiful.wibar_width - dpi(10),
+                --forced_height = beautiful.wibar_height - dpi(10),
             },
             margins = dpi(5),
             widget = wibox.container.margin,
@@ -218,7 +218,7 @@ awful.screen.connect_for_each_screen(function(s)
                     widget = wibox.widget.imagebox,
                     forced_width = beautiful.bev_width,
                     forced_height = beautiful.wibar_height,
-                    image = beautiful.tasklist_capstart,
+                    image = beautiful.images.tasklist_cap_west_normal,
                 },
                 {
                     {
@@ -249,7 +249,7 @@ awful.screen.connect_for_each_screen(function(s)
                     widget = wibox.widget.imagebox,
                     forced_width = beautiful.bev_width,
                     forced_height = beautiful.wibar_height,
-                    image = beautiful.tasklist_capend,
+                    image = beautiful.images.tasklist_cap_east_normal,
                 },
                 layout = wibox.layout.align.horizontal,
             },
@@ -259,14 +259,14 @@ awful.screen.connect_for_each_screen(function(s)
             -- Change to correct endcap graphics as needed
             update_callback = function(self, c)
                 if c == client.focus then
-                    self:get_children_by_id('cap_start')[1].image = beautiful.tasklist_capstart_focus
-                    self:get_children_by_id('cap_end')[1].image = beautiful.tasklist_capend_focus
+                    --self:get_children_by_id('cap_start')[1].image = beautiful.tasklist_capstart_focus
+                    --self:get_children_by_id('cap_end')[1].image = beautiful.tasklist_capend_focus
                 elseif c.urgent == true then
-                    self:get_children_by_id('cap_start')[1].image = beautiful.tasklist_capstart_urgent
-                    self:get_children_by_id('cap_end')[1].image = beautiful.tasklist_capend_urgent
+                    --self:get_children_by_id('cap_start')[1].image = beautiful.tasklist_capstart_urgent
+                    --self:get_children_by_id('cap_end')[1].image = beautiful.tasklist_capend_urgent
                 else
-                    self:get_children_by_id('cap_start')[1].image = beautiful.tasklist_capstart
-                    self:get_children_by_id('cap_end')[1].image = beautiful.tasklist_capend
+                    --self:get_children_by_id('cap_start')[1].image = beautiful.tasklist_capstart
+                    --self:get_children_by_id('cap_end')[1].image = beautiful.tasklist_capend
                 end
             end
         },

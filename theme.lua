@@ -12,12 +12,24 @@ local drawing = require("lib.drawing")
 --------------
 --  BASICS  --
 --------------
-
 local theme = {}
+
 theme.wallpaper     = "~/.config/awesome/background.svg"
 theme.font          = "Iosevka Medium " .. dpi(9)
 theme.taglist_font  = "Symbols Nerd Font " .. dpi(10)
 theme.calendar_font = "Iosevka " .. dpi(10)
+
+-- UI Scaling
+theme.useless_gap   = dpi(0)
+theme.menu_height   = dpi(24)
+theme.menu_width    = dpi(180)
+theme.border_width  = dpi(1.3)
+theme.taglist_shape_border_width = dpi(1.3)
+theme.taglist_shape_border_width_empty = 0
+theme.bev_width     = dpi(1.3)
+--theme.systray_icon_spacing = dpi(4)
+theme.wibar_height  = dpi(32)
+theme.wibar_width   = dpi(32)
 
 theme.colors = {
     black           = "#000000",
@@ -45,15 +57,62 @@ theme.shapes = {
         gears.shape.rounded_rect( cr, width, height, dpi(2.6) ) end,
 }
 
+theme.images = {
+    wibar_horizontal = function(context, cr, width, height)
+        drawing.beveled_bar(
+            context,
+            cr,
+            width,
+            height,
+            false,
+            theme.bev_width,
+            theme.bg_normal,
+            theme.colors.bevel_light,
+            theme.bev_shadow
+        ) end,
+    wibar_vertical = function(context, cr, width, height)
+        drawing.beveled_bar(
+            context,
+            cr,
+            width,
+            height,
+            true,
+            theme.bev_width,
+            theme.bg_normal,
+            theme.colors.bevel_light,
+            theme.bev_shadow
+        ) end,
+
+    tasklist_horizontal_normal = drawing.beveled_bar(
+        nil, nil, 1080,
+        theme.wibar_height,
+        "horizontal",
+        theme.bev_width,
+        theme.theme.colors.bevel_body,
+        theme.colors.bevel_light,
+        theme.bev_shadow),
+    tasklist_cap_west_normal = drawing.barcap(
+        nil,
+        nil,
+        theme.wibar_height,
+        "west", theme.bev_width,
+        theme.colors.bevel_light,
+        theme.bev_shadow,
+        theme.colors.bevel_light),
+    tasklist_cap_east_normal = drawing.barcap(
+        nil,
+        nil,
+        theme.wibar_height,
+        "east",
+        theme.bev_width,
+        theme.colors.bevel_light,
+        theme.bev_shadow,
+        theme.bev_shadow),
+}
+
 -- Other basics
 theme.hotkeys_modifiers_fg = theme.colors.focused
 
-theme.useless_gap   = dpi(0)
-theme.menu_height   = dpi(24)
-theme.menu_width    = dpi(180)
-theme.border_width  = dpi(1.3)
-theme.bev_width     = dpi(1.3)
---theme.systray_icon_spacing = dpi(4)
 theme.taglist_squares       = "false"
 theme.titlebar_close_button = "true"
 
@@ -62,11 +121,8 @@ theme.border_focus  = theme.colors.hover
 theme.border_marked = theme.colors.white
 
 -- WiBar
-theme.wibar_height  = dpi(32)
-theme.wibar_width   = dpi(32)
-
 theme.bg_normal     = theme.colors.bevel_body
-theme.bev_highlight = theme.colors.bevel_light
+theme.colors.bevel_light = theme.colors.bevel_light
 theme.bev_shadow    = theme.colors.bevel_shadow
 
 theme.bg_focus      = theme.colors.grey
@@ -83,15 +139,14 @@ theme.fg_minimize   = theme.colors.grey
 
 -- Taglist
 theme.taglist_shape = theme.shapes.rounded_rect
-theme.taglist_shape_border_width = dpi(1.3)
+
 theme.taglist_shape_border_color = theme.colors.grey
 theme.taglist_shape_border_color_focus = theme.colors.focus
-theme.taglist_shape_border_width_empty = 0
 
 -- Tasklist
 theme.tasklist_fg_normal   = theme.colors.black
 theme.tasklist_fg_focus    = theme.colors.white
-theme.tasklist_bg_normal   = theme.bg_normal
+theme.tasklist_bg_normal   = theme.colors.bevel_body
 
 theme.tasklist_bg_focus    = theme.colors.focused
 theme.bev_highlight_focus  = theme.colors.focused_light
@@ -124,7 +179,7 @@ theme.notification_border_color = theme.colors.black
 -- IMAGES --
 
 -- Wibar
-local wibar_bg = function(context, cr, width, height, orientation)
+theme.wibar_bgimage = function(context, cr, width, height, orientation)
     drawing.beveled_bar(
         context,
         cr,
@@ -138,40 +193,27 @@ local wibar_bg = function(context, cr, width, height, orientation)
     )
 end
 
-theme.wibar_bgimage = wibar_bg
-
 -- Taglist
 
 -- Tasklist
-local task_bg_normal = drawing.beveled_bar( nil, nil, 1080, theme.wibar_height, "horizontal", theme.bev_width, theme.tasklist_bg_normal, theme.bev_highlight, theme.bev_shadow)
-local task_capstart = drawing.barcap_start( nil, nil, theme.wibar_height, theme.bev_width, theme.bev_highlight, theme.bev_shadow, theme.bev_highlight)
-local task_capend = drawing.barcap_end( nil, nil, theme.wibar_height, theme.bev_width, theme.bev_highlight, theme.bev_shadow, theme.bev_shadow)
+theme.tasklist_bg_image_normal = drawing.beveled_bar( nil, nil, 1080, theme.wibar_height, "horizontal", theme.bev_width, theme.tasklist_bg_normal, theme.bev_highlight, theme.bev_shadow)
+theme.tasklist_capstart = drawing.barcap( nil, nil, theme.wibar_height, "west", theme.bev_width, theme.bev_highlight, theme.bev_shadow, theme.bev_highlight)
+theme.tasklist_capend = drawing.barcap( nil, nil, theme.wibar_height, "east", theme.bev_width, theme.bev_highlight, theme.bev_shadow, theme.bev_shadow)
 
-local task_bg_focus = drawing.beveled_bar( nil, nil, 1080, theme.wibar_height,  "horizontal", theme.bev_width, theme.tasklist_bg_focus, theme.bev_highlight_focus, theme.bev_shadow_focus)
-local task_capstart_focus = drawing.barcap_start( nil, nil, theme.wibar_height, theme.bev_width, theme.bev_highlight_focus, theme.bev_shadow_focus, theme.bev_highlight_focus)
-local task_capend_focus = drawing.barcap_end( nil, nil, theme.wibar_height, theme.bev_width, theme.bev_highlight_focus, theme.bev_shadow_focus, theme.bev_shadow_focus)
+theme.tasklist_bg_image_focus = drawing.beveled_bar( nil, nil, 1080, theme.wibar_height,  "horizontal", theme.bev_width, theme.tasklist_bg_focus, theme.bev_highlight_focus, theme.bev_shadow_focus)
+theme.tasklist_capstart_focus = drawing.barcap( nil, nil, theme.wibar_height, "west", theme.bev_width, theme.bev_highlight_focus, theme.bev_shadow_focus, theme.bev_highlight_focus)
+theme.tasklist_capend_focus = drawing.barcap( nil, nil, theme.wibar_height, "east", theme.bev_width, theme.bev_highlight_focus, theme.bev_shadow_focus, theme.bev_shadow_focus)
 
-local task_bg_urgent = drawing.beveled_bar( nil, nil, 1080, theme.wibar_height,  "horizontal", theme.bev_width, theme.bg_urgent, theme.bev_highlight_urgent, theme.bev_shadow_urgent)
-local task_capstart_urgent = drawing.barcap_start( nil, nil, theme.wibar_height, theme.bev_width, theme.bev_highlight_urgent, theme.bev_shadow_urgent, theme.bev_highlight_urgent)
-local task_capend_urgent = drawing.barcap_end( nil, nil, theme.wibar_height, theme.bev_width, theme.bev_highlight_urgent, theme.bev_shadow_urgent, theme.bev_shadow_urgent)
+theme.tasklist_bg_image_urgent = drawing.beveled_bar( nil, nil, 1080, theme.wibar_height,  "horizontal", theme.bev_width, theme.bg_urgent, theme.bev_highlight_urgent, theme.bev_shadow_urgent)
+theme.tasklist_capstart_urgent = drawing.barcap( nil, nil, theme.wibar_height, "west", theme.bev_width, theme.bev_highlight_urgent, theme.bev_shadow_urgent, theme.bev_highlight_urgent)
+theme.tasklist_capend_focus = drawing.barcap( nil, nil, theme.wibar_height, "east", theme.bev_width, theme.bev_highlight_urgent, theme.bev_shadow_urgent, theme.bev_shadow_urgent)
 
-theme.tasklist_bg_image_normal = task_bg_normal
-theme.tasklist_bg_image_minimize = task_bg_normal
-theme.tasklist_capstart = task_capstart
-theme.tasklist_capend = task_capend
+theme.tasklist_bg_image_minimize = theme.tasklist_bg_image_normal
 
-theme.tasklist_bg_image_focus = task_bg_focus
-theme.tasklist_capstart_focus = task_capstart_focus
-theme.tasklist_capend_focus = task_capend_focus
-
-theme.tasklist_bg_image_urgent = task_bg_urgent
-theme.tasklist_capstart_urgent = task_capstart_urgent
-theme.tasklist_capend_focus = task_capend_urgent
 
 -- Titlebar background images
-local titlebar_bg_focus = function(context, cr, width, height) drawing.beveled_rect( context, cr, width, height, dpi(1.25), "#eda771" )  end
+theme.titlebar_bg_image_focus = function(context, cr, width, height) drawing.beveled_rect( context, cr, width, height, dpi(1.25), "#eda771" )  end
 
-theme.titlebar_bg_image_focus = titlebar_bg_focus
 
 -- Layout image definitions
 theme.layout_fairh           = themes_path .. "default/layouts/fairhw.png"

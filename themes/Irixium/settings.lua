@@ -8,7 +8,7 @@ local drawing = require("lib.drawing")
 local common = {}
 
 common.scales = {
-    useless_gap     = dpi(1),
+    useless_gap     = dpi(0),
 
     border_width    = dpi(1.3),
     wibar_size      = dpi(32),
@@ -90,6 +90,31 @@ common.images = {
         common.colors.bevel_light,
         common.colors.bevel_shadow,
         common.colors.bevel_shadow),
+
+    tasklist_horizontal_focus = drawing.beveled_bar(
+        nil, nil, 1080,
+        common.scales.wibar_size,
+        "horizontal",
+        common.scales.border_width,
+        common.colors.focused,
+        common.colors.focused_light,
+        common.colors.focused_shadow),
+    tasklist_cap_west_focus = drawing.barcap(
+        nil, nil,
+        common.scales.wibar_size,
+        "west",
+        common.scales.border_width,
+        common.colors.focused_light,
+        common.colors.focused_shadow,
+        common.colors.focused_light),
+    tasklist_cap_east_focus = drawing.barcap(
+        nil, nil,
+        common.scales.wibar_size,
+        "east",
+        common.scales.border_width,
+        common.colors.focused_light,
+        common.colors.focused_shadow,
+        common.colors.focused_shadow),
 }
 
 return common

@@ -59,7 +59,7 @@ theme.fg_urgent     = common.colors.black
 theme.fg_minimize   = common.colors.grey
 
 -- Taglist
-theme.taglist_shape = theme.shapes.rounded_rect
+theme.taglist_shape = common.shapes.rounded_rect
 
 theme.taglist_shape_border_color = common.colors.grey
 theme.taglist_shape_border_color_focus = common.colors.focus
@@ -89,7 +89,7 @@ theme.titlebar_fg_minimize = common.colors.grey
 
 -- Notifications
 theme.notification_margin  = dpi(16)
-theme.notification_shape   = theme.shapes.rounded_rect
+theme.notification_shape   = common.shapes.rounded_rect
 theme.notification_max_width = dpi(320)
 theme.notification_border_width = dpi(1.25)
 theme.notification_icon_size = dpi(128)
@@ -112,7 +112,7 @@ theme.tasklist_bg_image_urgent = drawing.beveled_bar( nil, nil, 1080, theme.wiba
 theme.tasklist_capstart_urgent = drawing.barcap( nil, nil, theme.wibar_height, "west", theme.bev_width, theme.bev_highlight_urgent, theme.bev_shadow_urgent, theme.bev_highlight_urgent)
 theme.tasklist_capend_focus = drawing.barcap( nil, nil, theme.wibar_height, "east", theme.bev_width, theme.bev_highlight_urgent, theme.bev_shadow_urgent, theme.bev_shadow_urgent)
 
-theme.tasklist_bg_image_minimize = theme.tasklist_bg_image_normal
+theme.tasklist_bg_image_minimize = common.images.tasklist_horizontal_normal
 
 
 -- Titlebar background images

@@ -9,12 +9,12 @@ local common = {}
 
 common.scales = {
     useless_gap     = dpi(1),
-    
-    menu_height     = dpi(24),
-    menu_width      = dpi(180),
-    
+
     border_width    = dpi(1.3),
     wibar_size      = dpi(32),
+
+    menu_height     = dpi(24),
+    menu_width      = dpi(180),
 }
 
 common.colors = {

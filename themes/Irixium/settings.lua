@@ -77,7 +77,8 @@ common.images = {
     tasklist_cap_west_normal = drawing.barcap(
         nil, nil,
         common.scales.wibar_size,
-        "west", common.scales.border_width,
+        "west",
+        common.scales.border_width,
         common.colors.bevel_light,
         common.colors.bevel_shadow,
         common.colors.bevel_light),

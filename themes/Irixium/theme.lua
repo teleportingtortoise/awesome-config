@@ -20,6 +20,7 @@ theme.font          = "Iosevka Medium " .. dpi(9)
 theme.taglist_font  = "Symbols Nerd Font " .. dpi(10)
 theme.calendar_font = "Iosevka " .. dpi(10)
 
+
 -- UI Scaling
 theme.useless_gap   = common.scales.useless_gap
 theme.menu_height   = common.scales.menu_height
@@ -43,15 +44,13 @@ theme.border_focus  = common.colors.hover
 theme.border_marked = common.colors.white
 
 -- WiBar
+theme.wibar_bgimage = common.images.wibar_horizontal
 theme.bg_normal     = common.colors.bevel_body
-common.colors.bevel_light = common.colors.bevel_light
-theme.bev_shadow    = common.colors.bevel_shadow
-
 theme.bg_focus      = common.colors.grey
-
 theme.bg_urgent     = common.colors.urgent
 
 theme.bg_minimize   = theme.bg_normal
+
 theme.bg_systray    = theme.bg_normal
 
 theme.fg_normal     = common.colors.black
@@ -100,27 +99,10 @@ theme.notification_border_color = common.colors.black
 
 -- IMAGES --
 
--- Wibar
-theme.wibar_bgimage = function(context, cr, width, height, orientation)
-    drawing.beveled_bar(
-        context,
-        cr,
-        width,
-        height,
-        orientation,
-        theme.bev_width,
-        theme.bg_normal,
-        theme.bev_highlight,
-        theme.bev_shadow
-    )
-end
-
 -- Taglist
 
 -- Tasklist
-theme.tasklist_bg_image_normal = drawing.beveled_bar( nil, nil, 1080, theme.wibar_height, "horizontal", theme.bev_width, theme.tasklist_bg_normal, theme.bev_highlight, theme.bev_shadow)
-theme.tasklist_capstart = drawing.barcap( nil, nil, theme.wibar_height, "west", theme.bev_width, theme.bev_highlight, theme.bev_shadow, theme.bev_highlight)
-theme.tasklist_capend = drawing.barcap( nil, nil, theme.wibar_height, "east", theme.bev_width, theme.bev_highlight, theme.bev_shadow, theme.bev_shadow)
+theme.tasklist_bg_image_normal = common.images.tasklist_horizontal_normal
 
 theme.tasklist_bg_image_focus = drawing.beveled_bar( nil, nil, 1080, theme.wibar_height,  "horizontal", theme.bev_width, theme.tasklist_bg_focus, theme.bev_highlight_focus, theme.bev_shadow_focus)
 theme.tasklist_capstart_focus = drawing.barcap( nil, nil, theme.wibar_height, "west", theme.bev_width, theme.bev_highlight_focus, theme.bev_shadow_focus, theme.bev_highlight_focus)

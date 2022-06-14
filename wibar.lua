@@ -10,6 +10,7 @@ require("awful.autofocus")
 local wibox = require("wibox")
 -- Theme handling library
 local beautiful = require("beautiful")
+local common = require("themes.Irixium.settings")
 -- Notification library
 --local naughty = require("naughty")
 --local menubar = require("menubar")
@@ -218,7 +219,7 @@ awful.screen.connect_for_each_screen(function(s)
                     widget = wibox.widget.imagebox,
                     forced_width = beautiful.bev_width,
                     forced_height = beautiful.wibar_height,
-                    image = beautiful.images.tasklist_cap_west_normal,
+                    image = common.images.tasklist_cap_west_normal,
                 },
                 {
                     {
@@ -249,7 +250,7 @@ awful.screen.connect_for_each_screen(function(s)
                     widget = wibox.widget.imagebox,
                     forced_width = beautiful.bev_width,
                     forced_height = beautiful.wibar_height,
-                    image = beautiful.images.tasklist_cap_east_normal,
+                    image = common.images.tasklist_cap_east_normal,
                 },
                 layout = wibox.layout.align.horizontal,
             },

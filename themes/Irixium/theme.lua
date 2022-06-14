@@ -8,6 +8,7 @@ local themes_path = require("gears.filesystem").get_themes_dir()
 local gears = require("gears")
 -- Simple drawing library
 local drawing = require("lib.drawing")
+local common = require("themes.Irixium.settings")
 
 --------------
 --  BASICS  --
@@ -20,151 +21,72 @@ theme.taglist_font  = "Symbols Nerd Font " .. dpi(10)
 theme.calendar_font = "Iosevka " .. dpi(10)
 
 -- UI Scaling
-theme.useless_gap   = dpi(0)
-theme.menu_height   = dpi(24)
-theme.menu_width    = dpi(180)
-theme.border_width  = dpi(1.3)
-theme.taglist_shape_border_width = dpi(1.3)
+theme.useless_gap   = common.scales.useless_gap
+theme.menu_height   = common.scales.menu_height
+theme.menu_width    = common.scales.menu_width
+theme.border_width  = common.scales.border_width
+theme.taglist_shape_border_width = common.scales.border_width
 theme.taglist_shape_border_width_empty = 0
-theme.bev_width     = dpi(1.3)
+theme.bev_width     = common.scales.border_width
 --theme.systray_icon_spacing = dpi(4)
-theme.wibar_height  = dpi(32)
-theme.wibar_width   = dpi(32)
-
-theme.colors = {
-    black           = "#000000",
-    grey            = "#7f7f7f",
-    white           = "#f8f8f8",
-    text_body       = "#9ebdbd",
-    hover           = "#ffaa00",
-    focus           = "#ff00ff",
-
-    bevel_body      = "#c1c1c1",
-    bevel_light     = "#efefef",
-    bevel_shadow    = "#7f7f7f",
-
-    focused         = "#9b7777",
-    focused_light   = "#eda771",
-    focused_shadow  = "#553a3f",
-
-    urgent          = "#8a5e83",
-    urgent_light    = "#ed71a1",
-    urgent_shadow   = "#553a3f",
-}
-
-theme.shapes = {
-    rounded_rect    = function(cr, width, height)
-        gears.shape.rounded_rect( cr, width, height, dpi(2.6) ) end,
-}
-
-theme.images = {
-    wibar_horizontal = function(context, cr, width, height)
-        drawing.beveled_bar(
-            context,
-            cr,
-            width,
-            height,
-            false,
-            theme.bev_width,
-            theme.bg_normal,
-            theme.colors.bevel_light,
-            theme.bev_shadow
-        ) end,
-    wibar_vertical = function(context, cr, width, height)
-        drawing.beveled_bar(
-            context,
-            cr,
-            width,
-            height,
-            true,
-            theme.bev_width,
-            theme.bg_normal,
-            theme.colors.bevel_light,
-            theme.bev_shadow
-        ) end,
-
-    tasklist_horizontal_normal = drawing.beveled_bar(
-        nil, nil, 1080,
-        theme.wibar_height,
-        "horizontal",
-        theme.bev_width,
-        theme.theme.colors.bevel_body,
-        theme.colors.bevel_light,
-        theme.bev_shadow),
-    tasklist_cap_west_normal = drawing.barcap(
-        nil,
-        nil,
-        theme.wibar_height,
-        "west", theme.bev_width,
-        theme.colors.bevel_light,
-        theme.bev_shadow,
-        theme.colors.bevel_light),
-    tasklist_cap_east_normal = drawing.barcap(
-        nil,
-        nil,
-        theme.wibar_height,
-        "east",
-        theme.bev_width,
-        theme.colors.bevel_light,
-        theme.bev_shadow,
-        theme.bev_shadow),
-}
+theme.wibar_height  = common.scales.wibar_size
+theme.wibar_width   = common.scales.wibar_size
 
 -- Other basics
-theme.hotkeys_modifiers_fg = theme.colors.focused
+theme.hotkeys_modifiers_fg = common.colors.focused
 
 theme.taglist_squares       = "false"
 theme.titlebar_close_button = "true"
 
-theme.border_normal = theme.colors.grey
-theme.border_focus  = theme.colors.hover
-theme.border_marked = theme.colors.white
+theme.border_normal = common.colors.grey
+theme.border_focus  = common.colors.hover
+theme.border_marked = common.colors.white
 
 -- WiBar
-theme.bg_normal     = theme.colors.bevel_body
-theme.colors.bevel_light = theme.colors.bevel_light
-theme.bev_shadow    = theme.colors.bevel_shadow
+theme.bg_normal     = common.colors.bevel_body
+common.colors.bevel_light = common.colors.bevel_light
+theme.bev_shadow    = common.colors.bevel_shadow
 
-theme.bg_focus      = theme.colors.grey
+theme.bg_focus      = common.colors.grey
 
-theme.bg_urgent     = theme.colors.urgent
+theme.bg_urgent     = common.colors.urgent
 
 theme.bg_minimize   = theme.bg_normal
 theme.bg_systray    = theme.bg_normal
 
-theme.fg_normal     = theme.colors.black
-theme.fg_focus      = theme.colors.black
-theme.fg_urgent     = theme.colors.black
-theme.fg_minimize   = theme.colors.grey
+theme.fg_normal     = common.colors.black
+theme.fg_focus      = common.colors.black
+theme.fg_urgent     = common.colors.black
+theme.fg_minimize   = common.colors.grey
 
 -- Taglist
 theme.taglist_shape = theme.shapes.rounded_rect
 
-theme.taglist_shape_border_color = theme.colors.grey
-theme.taglist_shape_border_color_focus = theme.colors.focus
+theme.taglist_shape_border_color = common.colors.grey
+theme.taglist_shape_border_color_focus = common.colors.focus
 
 -- Tasklist
-theme.tasklist_fg_normal   = theme.colors.black
-theme.tasklist_fg_focus    = theme.colors.white
-theme.tasklist_bg_normal   = theme.colors.bevel_body
+theme.tasklist_fg_normal   = common.colors.black
+theme.tasklist_fg_focus    = common.colors.white
+theme.tasklist_bg_normal   = common.colors.bevel_body
 
-theme.tasklist_bg_focus    = theme.colors.focused
-theme.bev_highlight_focus  = theme.colors.focused_light
-theme.bev_shadow_focus     = theme.colors.focused_shadow
+theme.tasklist_bg_focus    = common.colors.focused
+theme.bev_highlight_focus  = common.colors.focused_light
+theme.bev_shadow_focus     = common.colors.focused_shadow
 
-theme.tasklist_bg_urgent   = theme.colors.urgent
-theme.bev_highlight_urgent = theme.colors.urgent_light
-theme.bev_shadow_urgent    = theme.colors.urgent_shadow
+theme.tasklist_bg_urgent   = common.colors.urgent
+theme.bev_highlight_urgent = common.colors.urgent_light
+theme.bev_shadow_urgent    = common.colors.urgent_shadow
 
 -- Titlebars
-theme.titlebar_bg_focus    = theme.colors.hover
-theme.titlebar_bg_normal   = theme.colors.grey
-theme.titlebar_bg_urgent   = theme.colors.urgent
+theme.titlebar_bg_focus    = common.colors.hover
+theme.titlebar_bg_normal   = common.colors.grey
+theme.titlebar_bg_urgent   = common.colors.urgent
 
-theme.titlebar_fg_normal   = theme.colors.white
-theme.titlebar_fg_focus    = theme.colors.white
-theme.titlebar_fg_urgent   = theme.colors.black
-theme.titlebar_fg_minimize = theme.colors.grey
+theme.titlebar_fg_normal   = common.colors.white
+theme.titlebar_fg_focus    = common.colors.white
+theme.titlebar_fg_urgent   = common.colors.black
+theme.titlebar_fg_minimize = common.colors.grey
 
 -- Notifications
 theme.notification_margin  = dpi(16)
@@ -172,9 +94,9 @@ theme.notification_shape   = theme.shapes.rounded_rect
 theme.notification_max_width = dpi(320)
 theme.notification_border_width = dpi(1.25)
 theme.notification_icon_size = dpi(128)
-theme.notification_bg      = theme.colors.text_body
-theme.notification_fg      = theme.colors.black
-theme.notification_border_color = theme.colors.black
+theme.notification_bg      = common.colors.text_body
+theme.notification_fg      = common.colors.black
+theme.notification_border_color = common.colors.black
 
 -- IMAGES --
 

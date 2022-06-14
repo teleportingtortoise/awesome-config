@@ -103,10 +103,7 @@ theme.notification_border_color = common.colors.black
 
 -- Tasklist
 theme.tasklist_bg_image_normal = common.images.tasklist_horizontal_normal
-
-theme.tasklist_bg_image_focus = drawing.beveled_bar( nil, nil, 1080, theme.wibar_height,  "horizontal", theme.bev_width, theme.tasklist_bg_focus, theme.bev_highlight_focus, theme.bev_shadow_focus)
-theme.tasklist_capstart_focus = drawing.barcap( nil, nil, theme.wibar_height, "west", theme.bev_width, theme.bev_highlight_focus, theme.bev_shadow_focus, theme.bev_highlight_focus)
-theme.tasklist_capend_focus = drawing.barcap( nil, nil, theme.wibar_height, "east", theme.bev_width, theme.bev_highlight_focus, theme.bev_shadow_focus, theme.bev_shadow_focus)
+theme.tasklist_bg_image_focus = common.images.tasklist_horizontal_focus
 
 theme.tasklist_bg_image_urgent = drawing.beveled_bar( nil, nil, 1080, theme.wibar_height,  "horizontal", theme.bev_width, theme.bg_urgent, theme.bev_highlight_urgent, theme.bev_shadow_urgent)
 theme.tasklist_capstart_urgent = drawing.barcap( nil, nil, theme.wibar_height, "west", theme.bev_width, theme.bev_highlight_urgent, theme.bev_shadow_urgent, theme.bev_highlight_urgent)

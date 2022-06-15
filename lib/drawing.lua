@@ -73,11 +73,9 @@ local function barcap(context, cr, height, facing, thickness, top, bottom, cap)
     cr:close_path()
     cr:fill()
 
-    if facing == "west" then
-        return context
-    elseif facing == "east" then
+    if facing == "east" then
         local matrix = gears.matrix.create(
-            -1,  0,  1,
+            -1,  0,  0,
              0,  1,  0,
              0,  0,  1)
         matrix = matrix:to_cairo_matrix()

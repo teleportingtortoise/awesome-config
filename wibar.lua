@@ -90,7 +90,7 @@ awful.screen.connect_for_each_screen(function(s)
             },
             {
                 names = { "", "", ""},
-                icons = { "/usr/share/icons/breeze/actions/24/qa.svg", "/usr/share/icons/breeze/places/24/folder-build.svg", "/home/trysta/.local/share/icons/kora-light-panel/panel/24/steam_tray_mono.svg"},
+                icons = { "/usr/share/icons/breeze/actions/24/qa.svg", "/usr/share/icons/breeze/places/24/folder-build.svg", "/usr/share/icons/breeze/devices/24/input-gamepad.svg"},
                 layout = { layouts[10], layouts[4], layouts[4]}
             },
             {
@@ -287,6 +287,12 @@ awful.screen.connect_for_each_screen(function(s)
                 layout = s.layout_fixed_orientation,
                 panther_launcher,
                 s.mytaglist,
+                {
+                    widget = wibox.widget.imagebox,
+                    forced_width = beautiful.bev_width,
+                    forced_height = beautiful.wibar_height,
+                    image = common.images.tasklist_cap_east_normal,
+                },
                 { -- Rotate widget
                     -- {
                     --     widget = wibox.widget.imagebox,
@@ -303,6 +309,12 @@ awful.screen.connect_for_each_screen(function(s)
             { -- Right widgets
                 layout = s.layout_fixed_orientation,
                 --mykeyboardlayout,
+                {
+                    widget = wibox.widget.imagebox,
+                    forced_width = beautiful.bev_width,
+                    forced_height = beautiful.wibar_height,
+                    image = common.images.tasklist_cap_west_normal,
+                },
                 { -- Rotate clock
                     -- {
                     --     widget = wibox.widget.imagebox,

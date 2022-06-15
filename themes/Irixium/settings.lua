@@ -31,11 +31,11 @@ common.colors = {
 
     focused         = "#9b7777",
     focused_light   = "#eda771",
-    focused_shadow  = "#553a3f",
+    focused_shadow  = "#724d4d",
 
     urgent          = "#8a5e83",
     urgent_light    = "#ed71a1",
-    urgent_shadow   = "#553a3f",
+    urgent_shadow   = "#6B4772",
 }
 
 common.shapes = {

@@ -94,14 +94,6 @@ awful.rules.rules = {
         focusable = false,
     }},
 
-    -- { rule = { name = "Desktop" },
-    --     properties = {
-    --         sticky = true,
-    --         focusable = false,
-    --         below = true,
-    --         maximized = true,
-    -- }},
-
     { rule_any = {
         role = {
             --"pop-up",

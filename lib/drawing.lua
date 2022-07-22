@@ -24,6 +24,20 @@ local function beveled_bar(context, cr, width, height, vertical, thickness, bg_c
     cr:rectangle(0, 0, width, height)
     cr:fill()
 
+    if vertical == true then
+        -- West
+        cr:set_source(gears.color(north_color))
+        cr:rectangle(0, 0, thickness, height)
+        cr:fill()
+
+        -- East
+        cr:set_source(gears.color(south_color))
+        cr:rectangle(width - thickness, 0, thickness, height)
+        cr:fill()
+
+        return context
+    end
+
     -- North
     cr:set_source(gears.color(north_color))
     cr:rectangle(0, 0, width, thickness)
@@ -34,12 +48,6 @@ local function beveled_bar(context, cr, width, height, vertical, thickness, bg_c
     cr:rectangle(0, height - thickness, width, thickness)
     cr:fill()
 
-    if vertical == true then
-        cr:translate( width/2, height/2 )
-        cr:rotate( -90 )
-        cr:translate( -width/2, -height/2 )
-    end
-
     return context
 end
 
@@ -48,7 +56,7 @@ local function barcap(context, cr, height, facing, thickness, top, bottom, cap)
     local context = context or cairo.ImageSurface.create(cairo.Format.ARGB32, thickness, height)
     local cr = cr or cairo.Context(context)
     local height = height or 32
-    local facing = facing or "west"
+    local facing = facing or "start"
     local thickness = thickness or 1
     local top = top or "#ffffff"
     local bottom = bottom or "#000000"
@@ -64,23 +72,27 @@ local function barcap(context, cr, height, facing, thickness, top, bottom, cap)
     cr:rectangle(0, height - thickness, thickness, thickness)
     cr:fill()
 
+    if facing == "start" then
+        -- Cap
+        cr:set_source(gears.color(cap))
+        cr:move_to(0, 0)
+        cr:line_to(thickness, thickness)
+        cr:line_to(thickness, height - thickness)
+        cr:line_to(0, height)
+        cr:close_path()
+        cr:fill()
+
+        return context
+    end
+
     -- Cap
     cr:set_source(gears.color(cap))
-    cr:move_to(0, 0)
-    cr:line_to(thickness, thickness)
-    cr:line_to(thickness, height - thickness)
-    cr:line_to(0, height)
+    cr:move_to(thickness, 0)
+    cr:line_to(0, thickness)
+    cr:line_to(0, height - thickness)
+    cr:line_to(thickness, height)
     cr:close_path()
     cr:fill()
-
-    if facing == "east" then
-        local matrix = gears.matrix.create(
-            -1,  0,  0,
-             0,  1,  0,
-             0,  0,  1)
-        matrix = matrix:to_cairo_matrix()
-        cr:transform(matrix)
-    end
 
     return context
 end

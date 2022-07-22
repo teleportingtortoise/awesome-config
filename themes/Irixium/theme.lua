@@ -39,9 +39,11 @@ theme.hotkeys_modifiers_fg = common.colors.focused
 theme.taglist_squares       = "false"
 theme.titlebar_close_button = "true"
 
-theme.border_normal = common.colors.grey
+theme.border_normal = common.colors.text_body
 theme.border_focus  = common.colors.hover
 theme.border_marked = common.colors.white
+
+theme.prompt_bg     = common.colors.text_body
 
 -- WiBar
 theme.wibar_bgimage = common.images.wibar_horizontal
@@ -105,7 +107,7 @@ theme.notification_border_color = common.colors.black
 theme.tasklist_bg_image_normal = common.images.tasklist_horizontal_normal
 theme.tasklist_bg_image_focus = common.images.tasklist_horizontal_focus
 
-theme.tasklist_bg_image_urgent = drawing.beveled_bar( nil, nil, 1080, theme.wibar_height,  "horizontal", theme.bev_width, theme.bg_urgent, theme.bev_highlight_urgent, theme.bev_shadow_urgent)
+theme.tasklist_bg_image_urgent = drawing.beveled_bar( nil, nil, 1080, theme.wibar_height,  false, theme.bev_width, theme.bg_urgent, theme.bev_highlight_urgent, theme.bev_shadow_urgent)
 theme.tasklist_capstart_urgent = drawing.barcap( nil, nil, theme.wibar_height, "west", theme.bev_width, theme.bev_highlight_urgent, theme.bev_shadow_urgent, theme.bev_highlight_urgent)
 theme.tasklist_capend_focus = drawing.barcap( nil, nil, theme.wibar_height, "east", theme.bev_width, theme.bev_highlight_urgent, theme.bev_shadow_urgent, theme.bev_shadow_urgent)
 

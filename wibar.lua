@@ -84,23 +84,32 @@ awful.screen.connect_for_each_screen(function(s)
     local tags = {
         settings = {
             {
-                names = { "", "", "" },
-                icons = { "/usr/share/icons/breeze/places/24/folder-videos.svg", "/usr/share/icons/breeze/places/24/folder-build.svg", "/usr/share/icons/breeze/devices/24/input-gamepad.svg"},
-                layout = { layouts[2], layouts[2], layouts[11] }
-            },
-            {
                 names = { "", "", ""},
-                icons = { "/usr/share/icons/breeze/actions/24/qa.svg", "/usr/share/icons/breeze/places/24/folder-build.svg", "/usr/share/icons/breeze/devices/24/input-gamepad.svg"},
+                icons = { "/usr/share/icons/breeze/actions/24/qa.svg",
+                          "/usr/share/icons/breeze/places/24/folder-build.svg",
+                          "/usr/share/icons/breeze/devices/24/input-gamepad.svg"},
                 layout = { layouts[10], layouts[4], layouts[4]}
             },
             {
+                names = { "", "", "" },
+                icons = { "/usr/share/icons/breeze/places/24/folder-videos.svg",
+                          "/usr/share/icons/breeze/places/24/folder-build.svg",
+                          "/usr/share/icons/breeze/devices/24/input-gamepad.svg"},
+                layout = { layouts[2], layouts[2], layouts[11] }
+            },
+            {
                 names = { "", "", "", ""},
-                icons = { "/usr/share/icons/breeze/actions/24/story-editor.svg", "/usr/share/icons/breeze/actions/24/globe.svg", "/usr/share/icons/breeze/actions/24/photo.svg", "/usr/share/icons/breeze/actions/24/scriptnew.svg"},
+                icons = { "/usr/share/icons/breeze/actions/24/story-editor.svg",
+                          "/usr/share/icons/breeze/actions/24/globe.svg",
+                          "/usr/share/icons/breeze/actions/24/photo.svg",
+                          "/usr/share/icons/breeze/actions/24/scriptnew.svg"},
                 layout = { layouts[4], layouts[4], layouts[4], layouts[4]}
             },
             {
                 names = { "", "", "" },
-                icons = { "/usr/share/icons/breeze/actions/24/oilpaint.svg", "/usr/share/icons/breeze/actions/24/oilpaint.svg", "/usr/share/icons/breeze/actions/24/oilpaint.svg"},
+                icons = { "/usr/share/icons/breeze/actions/24/oilpaint.svg",
+                          "/usr/share/icons/breeze/actions/24/oilpaint.svg",
+                          "/usr/share/icons/breeze/actions/24/oilpaint.svg"},
                 layout = { layouts[2], layouts[2], layouts[2] }
            },
         }
@@ -122,19 +131,31 @@ awful.screen.connect_for_each_screen(function(s)
     end
 
 
-    -- Orientation controller
+    -- Set wibar orientation based on display orientation
     if s.geometry.width > s.geometry.height then
         s.wibar_position = "left"
         s.widget_rotation = "east"
         s.layout_fixed_orientation = wibox.layout.fixed.vertical
         s.layout_flex_orientation = wibox.layout.flex.vertical
         s.layout_align_orientation = wibox.layout.align.vertical
-    else
+        s.bar_orientation = common.images.wibar_vertical
+        s.task_cap_start = common.images.tasklist_cap_east_normal
+        s.task_cap_end = common.images.tasklist_cap_west_normal
+        s.task_cap_start_focus = common.images.tasklist_cap_east_focus
+        s.task_cap_end_focus = common.images.tasklist_cap_west_focus
+    end
+
+    if s.geometry.width < s.geometry.height then
         s.wibar_position = "top"
         s.widget_rotation = "north"
         s.layout_fixed_orientation = wibox.layout.fixed.horizontal
         s.layout_flex_orientation = wibox.layout.flex.horizontal
         s.layout_align_orientation = wibox.layout.align.horizontal
+        s.bar_orientation = common.images.wibar_horizontal
+        s.task_cap_start = common.images.tasklist_cap_west_normal
+        s.task_cap_end = common.images.tasklist_cap_east_normal
+        s.task_cap_start_focus = common.images.tasklist_cap_west_focus
+        s.task_cap_end_focus = common.images.tasklist_cap_east_focus
     end
 
 
@@ -167,7 +188,7 @@ awful.screen.connect_for_each_screen(function(s)
 
     -- Create a promptbox for each screen
     s.mypromptbox = awful.widget.prompt {
-        prompt = " EXECUTE: "
+        prompt = " > "
     }
     -- Create an imagebox widget which will contain an icon indicating which layout we're using.
     -- We need one layoutbox per screen.
@@ -217,16 +238,17 @@ awful.screen.connect_for_each_screen(function(s)
                     widget = wibox.widget.imagebox,
                     forced_width = beautiful.bev_width,
                     forced_height = beautiful.wibar_height,
-                    image = common.images.tasklist_cap_west_normal,
                 },
                 {
                     {
+
                         {
                             {
                                 id     = 'icon_role',
                                 widget = wibox.widget.imagebox,
                                 opacity = 1,
                             },
+                            id         = 'icon_margin_role',
                             margins = dpi(4),
                             widget  = wibox.container.margin,
                         },
@@ -235,10 +257,22 @@ awful.screen.connect_for_each_screen(function(s)
                                 id     = 'text_role',
                                 widget = wibox.widget.textbox,
                             },
+                            id         = 'text_margin_role',
                             margins = dpi(4),
                             widget  = wibox.container.margin,
                         },
-                        layout = wibox.layout.fixed.horizontal,
+                        {
+                            {
+                                id     = 'close_button',
+                                widget = wibox.widget.imagebox,
+                                image = '/home/trysta/.config/awesome/images/close.svg',
+                            },
+                            id         = 'close_button_margin',
+                            margins = dpi(4),
+                            widget  = wibox.container.margin,
+                            visible = false
+                        },
+                        layout = wibox.layout.align.horizontal,
                     },
                     id     = 'background_role',
                     widget = wibox.container.background,
@@ -248,26 +282,43 @@ awful.screen.connect_for_each_screen(function(s)
                     widget = wibox.widget.imagebox,
                     forced_width = beautiful.bev_width,
                     forced_height = beautiful.wibar_height,
-                    image = common.images.tasklist_cap_east_normal,
                 },
                 layout = wibox.layout.align.horizontal,
             },
             direction = s.widget_rotation,
             widget = wibox.container.rotate,
 
-            -- Change to correct endcap graphics as needed
+            -- Change graphics as needed
+            create_callback = function(self, c)
+                if c == client.focus then
+                    self:get_children_by_id('cap_start')[1].image = s.task_cap_start_focus
+                    self:get_children_by_id('cap_end')[1].image = s.task_cap_end_focus
+                    self:get_children_by_id('close_button_margin')[1].visible = true
+                    return
+                end
+                if c == client.urgent then
+                    self:get_children_by_id('cap_start')[1].image = beautiful.tasklist_capstart_urgent
+                    self:get_children_by_id('cap_end')[1].image = beautiful.tasklist_capend_urgent
+                end   
+                self:get_children_by_id('cap_start')[1].image = s.task_cap_start
+                self:get_children_by_id('cap_end')[1].image = s.task_cap_end
+                self:get_children_by_id('close_button_margin')[1].visible = false
+            end,
             update_callback = function(self, c)
                 if c == client.focus then
-                    self:get_children_by_id('cap_start')[1].image = common.images.tasklist_cap_west_focus
-                    self:get_children_by_id('cap_end')[1].image = common.images.tasklist_cap_east_focus
-                elseif c.urgent == true then
-                    --self:get_children_by_id('cap_start')[1].image = beautiful.tasklist_capstart_urgent
-                    --self:get_children_by_id('cap_end')[1].image = beautiful.tasklist_capend_urgent
-                else
-                    self:get_children_by_id('cap_start')[1].image = common.images.tasklist_cap_west_normal
-                    self:get_children_by_id('cap_end')[1].image = common.images.tasklist_cap_east_normal
+                    self:get_children_by_id('cap_start')[1].image = s.task_cap_start_focus
+                    self:get_children_by_id('cap_end')[1].image = s.task_cap_end_focus
+                    self:get_children_by_id('close_button_margin')[1].visible = true
+                    return
                 end
-            end
+                if c == client.urgent then
+                    self:get_children_by_id('cap_start')[1].image = beautiful.tasklist_capstart_urgent
+                    self:get_children_by_id('cap_end')[1].image = beautiful.tasklist_capend_urgent
+                end
+                self:get_children_by_id('cap_start')[1].image = s.task_cap_start
+                self:get_children_by_id('cap_end')[1].image = s.task_cap_end
+                self:get_children_by_id('close_button_margin')[1].visible = false
+            end,
         },
         buttons = tasklist_buttons,
     }
@@ -285,22 +336,42 @@ awful.screen.connect_for_each_screen(function(s)
             layout = s.layout_align_orientation,
             { -- Left widgets
                 layout = s.layout_fixed_orientation,
+                {
+                    {
+                        widget = wibox.widget.imagebox,
+                        forced_width = beautiful.bev_width,
+                        forced_height = beautiful.wibar_height,
+                        image = common.images.tasklist_cap_west_normal,
+                    },
+                    direction = s.widget_rotation,
+                    widget = wibox.container.rotate,
+                },
                 panther_launcher,
                 s.mytaglist,
                 {
-                    widget = wibox.widget.imagebox,
-                    forced_width = beautiful.bev_width,
-                    forced_height = beautiful.wibar_height,
-                    image = common.images.tasklist_cap_east_normal,
+                    {
+                        widget = wibox.widget.imagebox,
+                        forced_width = beautiful.bev_width,
+                        forced_height = beautiful.wibar_height,
+                        image = common.images.tasklist_cap_east_normal,
+                    },
+                    direction = s.widget_rotation,
+                    widget = wibox.container.rotate,
                 },
                 { -- Rotate widget
-                    -- {
-                    --     widget = wibox.widget.imagebox,
-                    --     forced_width = beautiful.bev_width,
-                    --     forced_height = beautiful.wibar_height,
-                    --     image = beautiful.tasklist_capend,
-                    -- },
                     s.mypromptbox,
+                    direction = s.widget_rotation,
+                    widget = wibox.container.rotate,
+                },
+                {
+                    {
+                        id = "taskless",
+                        widget = wibox.widget.imagebox,
+                        forced_width = beautiful.bev_width,
+                        forced_height = beautiful.wibar_height,
+                        image = common.images.tasklist_cap_west_normal,
+                        visible = true,
+                    },
                     direction = s.widget_rotation,
                     widget = wibox.container.rotate,
                 },
@@ -310,27 +381,49 @@ awful.screen.connect_for_each_screen(function(s)
                 layout = s.layout_fixed_orientation,
                 --mykeyboardlayout,
                 {
-                    widget = wibox.widget.imagebox,
-                    forced_width = beautiful.bev_width,
-                    forced_height = beautiful.wibar_height,
-                    image = common.images.tasklist_cap_west_normal,
+                    {
+                        id = "taskless",
+                        widget = wibox.widget.imagebox,
+                        forced_width = beautiful.bev_width,
+                        forced_height = beautiful.wibar_height,
+                        image = common.images.tasklist_cap_east_normal,
+                        visible = true,
+                    },
+                    direction = s.widget_rotation,
+                    widget = wibox.container.rotate,
+                },
+                {
+                    {
+                        widget = wibox.widget.imagebox,
+                        forced_width = beautiful.bev_width,
+                        forced_height = beautiful.wibar_height,
+                        image = common.images.tasklist_cap_west_normal,
+                    },
+                    direction = s.widget_rotation,
+                    widget = wibox.container.rotate,
                 },
                 { -- Rotate clock
-                    -- {
-                    --     widget = wibox.widget.imagebox,
-                    --     forced_width = beautiful.bev_width,
-                    --     forced_height = beautiful.wibar_height,
-                    --     image = beautiful.tasklist_capstart,
-                    -- },
                     s.mytextclock,
                     direction = s.widget_rotation,
                     widget = wibox.container.rotate,
                 },
                 s.mylayoutbox,
                 --mylauncher
+                {
+                    {
+                        widget = wibox.widget.imagebox,
+                        forced_width = beautiful.bev_width,
+                        forced_height = beautiful.wibar_height,
+                        image = common.images.tasklist_cap_east_normal,
+                    },
+                    direction = s.widget_rotation,
+                    widget = wibox.container.rotate,
+                },
             },
         },
-        --margins = dpi(1.5),
         widget = wibox.container.margin,
+        update_callback = function(self)
+            self:get_children_by_id('taskless')[1].visible = false
+        end
     }
 end)

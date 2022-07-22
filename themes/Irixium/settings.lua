@@ -69,7 +69,7 @@ common.images = {
     tasklist_horizontal_normal = drawing.beveled_bar(
         nil, nil, 1080,
         common.scales.wibar_size,
-        "horizontal",
+        false,
         common.scales.border_width,
         common.colors.bevel_body,
         common.colors.bevel_light,
@@ -77,7 +77,7 @@ common.images = {
     tasklist_cap_west_normal = drawing.barcap(
         nil, nil,
         common.scales.wibar_size,
-        "west",
+        "start",
         common.scales.border_width,
         common.colors.bevel_light,
         common.colors.bevel_shadow,
@@ -85,7 +85,7 @@ common.images = {
     tasklist_cap_east_normal = drawing.barcap(
         nil, nil,
         common.scales.wibar_size,
-        "east",
+        "end",
         common.scales.border_width,
         common.colors.bevel_light,
         common.colors.bevel_shadow,
@@ -94,7 +94,7 @@ common.images = {
     tasklist_horizontal_focus = drawing.beveled_bar(
         nil, nil, 1080,
         common.scales.wibar_size,
-        "horizontal",
+        false,
         common.scales.border_width,
         common.colors.focused,
         common.colors.focused_light,
@@ -102,7 +102,7 @@ common.images = {
     tasklist_cap_west_focus = drawing.barcap(
         nil, nil,
         common.scales.wibar_size,
-        "west",
+        "start",
         common.scales.border_width,
         common.colors.focused_light,
         common.colors.focused_shadow,
@@ -110,7 +110,7 @@ common.images = {
     tasklist_cap_east_focus = drawing.barcap(
         nil, nil,
         common.scales.wibar_size,
-        "east",
+        "end",
         common.scales.border_width,
         common.colors.focused_light,
         common.colors.focused_shadow,

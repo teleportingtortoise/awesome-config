@@ -158,7 +158,6 @@ awful.screen.connect_for_each_screen(function(s)
         s.task_cap_end_focus = common.images.tasklist_cap_east_focus
     end
 
-
     -- Create a textclock widget and connect it with latte panel
     s.mytextclock = wibox.widget.textclock(" %a %d, %l:%M%p ")
     s.mytextclock:connect_signal("button::press", function(_, _, _, button)
@@ -249,7 +248,7 @@ awful.screen.connect_for_each_screen(function(s)
                                 opacity = 1,
                             },
                             id         = 'icon_margin_role',
-                            margins = dpi(4),
+                            margins = dpi(5),
                             widget  = wibox.container.margin,
                         },
                         {
@@ -299,6 +298,7 @@ awful.screen.connect_for_each_screen(function(s)
                 if c == client.urgent then
                     self:get_children_by_id('cap_start')[1].image = beautiful.tasklist_capstart_urgent
                     self:get_children_by_id('cap_end')[1].image = beautiful.tasklist_capend_urgent
+                    return
                 end   
                 self:get_children_by_id('cap_start')[1].image = s.task_cap_start
                 self:get_children_by_id('cap_end')[1].image = s.task_cap_end
@@ -314,6 +314,7 @@ awful.screen.connect_for_each_screen(function(s)
                 if c == client.urgent then
                     self:get_children_by_id('cap_start')[1].image = beautiful.tasklist_capstart_urgent
                     self:get_children_by_id('cap_end')[1].image = beautiful.tasklist_capend_urgent
+                    return
                 end
                 self:get_children_by_id('cap_start')[1].image = s.task_cap_start
                 self:get_children_by_id('cap_end')[1].image = s.task_cap_end
@@ -335,7 +336,6 @@ awful.screen.connect_for_each_screen(function(s)
         {
             layout = s.layout_align_orientation,
             { -- Left widgets
-                layout = s.layout_fixed_orientation,
                 {
                     {
                         widget = wibox.widget.imagebox,
@@ -346,9 +346,11 @@ awful.screen.connect_for_each_screen(function(s)
                     direction = s.widget_rotation,
                     widget = wibox.container.rotate,
                 },
+                layout = s.layout_fixed_orientation,
                 panther_launcher,
                 s.mytaglist,
                 {
+                    id = "tasked",
                     {
                         widget = wibox.widget.imagebox,
                         forced_width = beautiful.bev_width,
@@ -358,22 +360,14 @@ awful.screen.connect_for_each_screen(function(s)
                     direction = s.widget_rotation,
                     widget = wibox.container.rotate,
                 },
-                { -- Rotate widget
-                    s.mypromptbox,
-                    direction = s.widget_rotation,
-                    widget = wibox.container.rotate,
-                },
                 {
                     {
-                        id = "taskless",
-                        widget = wibox.widget.imagebox,
-                        forced_width = beautiful.bev_width,
-                        forced_height = beautiful.wibar_height,
-                        image = common.images.tasklist_cap_west_normal,
-                        visible = true,
+                        s.mypromptbox,
+                        direction = s.widget_rotation,
+                        widget = wibox.container.rotate,
                     },
-                    direction = s.widget_rotation,
-                    widget = wibox.container.rotate,
+                    widget = wibox.container.background,
+                    image = common.images.wibar_horizontal,
                 },
             },
             s.mytasklist, -- Middle widget
@@ -381,18 +375,7 @@ awful.screen.connect_for_each_screen(function(s)
                 layout = s.layout_fixed_orientation,
                 --mykeyboardlayout,
                 {
-                    {
-                        id = "taskless",
-                        widget = wibox.widget.imagebox,
-                        forced_width = beautiful.bev_width,
-                        forced_height = beautiful.wibar_height,
-                        image = common.images.tasklist_cap_east_normal,
-                        visible = true,
-                    },
-                    direction = s.widget_rotation,
-                    widget = wibox.container.rotate,
-                },
-                {
+                    id = "tasked",
                     {
                         widget = wibox.widget.imagebox,
                         forced_width = beautiful.bev_width,
@@ -422,8 +405,5 @@ awful.screen.connect_for_each_screen(function(s)
             },
         },
         widget = wibox.container.margin,
-        update_callback = function(self)
-            self:get_children_by_id('taskless')[1].visible = false
-        end
     }
 end)

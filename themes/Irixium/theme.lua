@@ -43,7 +43,7 @@ theme.border_normal = common.colors.text_body
 theme.border_focus  = common.colors.hover
 theme.border_marked = common.colors.white
 
-theme.prompt_bg     = common.colors.text_body
+theme.prompt_bg     = "#00000000"
 
 -- WiBar
 theme.wibar_bgimage = common.images.wibar_horizontal
